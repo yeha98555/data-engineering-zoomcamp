@@ -2,31 +2,26 @@
 
 
 ### Postgres
+write Postgres and pgAdmin into `docker-compose.yml`.
+use it.
 ```shell
-docker network create pg-network
+# start
+# -d: run in background
+docker compose up -d
 
-docker run -it \
-    -e POSTGRES_USER="root" \
-    -e POSTGRES_PASSWORD="root" \
-    -e POSTGRES_DB="ny_taxi" \
-    -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
-    -p 5432:5432 \
-    --network=pg-network \
-    --name pg-database \
-    postgres:13
+# shutdown
+docker compose down
 ```
-
-### pgAdmin
-```shell
-docker run -it \
-    -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
-    -e PGADMIN_DEFAULT_PASSWORD="root" \
-    -p 8080:80 \
-    --network=pg-network \
-    --name pgAdmin \
-    dpage/pgadmin4
-```
-go to `localhost:8080`.
+1. go to `localhost:8080`.
+2. login
+   use the `PGADMIN_DEFAULT_EMAIL` and `PGADMIN_DEFAULT_PASSWORD`
+3. add Postgres database
+   1) right click `Servers`, select `Register`->`Server`
+   2) input name into the `name` in `General`
+   3) input `pg-database` into the `Host name`, `root` into the `Username` and the `Password` in `Connection`
+4. SQL Operation
+   `Servers` -> `Docker localhost` -> `Database` -> `ny_taxi` -> `Schemas` -> `Tables` -> `yellow_taxi_data`
+   right click, select `Query Tool`
 
 ### Ingest Data
 ```shell
@@ -41,7 +36,7 @@ docker run -it \
     taxi_ingest:v001 \
     --user=root \
     --password=root \
-    --host=pg-database \
+    --host=pgdatabase \
     --port=5432 \
     --db=ny_taxi \
     --table_name=yellow_taxi_trips \
