@@ -16,13 +16,16 @@ def main(params):
     table_name = params.table_name
     url = params.url
 
-    parquet_name = 'output.parquet'
     csv_name = 'output.csv'
 
     # download csv
-    os.system(f'wget {url} -O {parquet_name}')
-    df = pd.read_parquet(parquet_name)
-    df.to_csv(csv_name)
+    if url.endswith('.parquet'):
+        parquet_name = 'output.parquet'
+        os.system(f'wget {url} -O {parquet_name}')
+        df = pd.read_parquet(parquet_name)
+        df.to_csv(csv_name)
+    else:
+        os.system(f'wget {url} -O {csv_name}')
 
     engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
     engine.connect()
