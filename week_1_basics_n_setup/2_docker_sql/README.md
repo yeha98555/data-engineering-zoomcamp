@@ -11,6 +11,9 @@ docker compose up -d
 
 # shutdown
 docker compose down
+
+# check newtork
+docker network ls
 ```
 1. go to `localhost:8080`.
 2. login
