@@ -18,7 +18,7 @@ docker compose down
 3. add Postgres database
    1) right click `Servers`, select `Register`->`Server`
    2) input name into the `name` in `General`
-   3) input `pg-database` into the `Host name`, `root` into the `Username` and the `Password` in `Connection`
+   3) input `pgdatabase` into the `Host name`, `root` into the `Username` and the `Password` in `Connection`
 4. SQL Operation
    `Servers` -> `Docker localhost` -> `Database` -> `ny_taxi` -> `Schemas` -> `Tables` -> `yellow_taxi_data`
    right click, select `Query Tool`
