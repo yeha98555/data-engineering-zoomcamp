@@ -25,7 +25,10 @@ terraform --version
 
 1. login [Google Cloud Platform](https://cloud.google.com/)
 2. create a new project, and select it
+    - Project name: dtc-de
 3. go `IAM & Admin` on left menu, then go to `Service Accounts`
+    - service account name: dtc-de-user
+    - role: viewer
 4. click `CREATE SERVICE ACCOUNT`
 5. click `Manage keys` of the created service account
 	1) `ADD KEY` -> `Create new key`
