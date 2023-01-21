@@ -68,7 +68,7 @@ docker run -it \
 
 #### zones
 ```shell
-URL="https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv"
+URL="https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv"
 
 # run docker image
 docker run -it \
