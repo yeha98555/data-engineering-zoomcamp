@@ -2,6 +2,7 @@ import os
 import argparse
 
 from time import time
+import gzip
 
 import pandas as pd
 from sqlalchemy import create_engine
@@ -24,6 +25,13 @@ def main(params):
         os.system(f'wget {url} -O {parquet_name}')
         df = pd.read_parquet(parquet_name)
         df.to_csv(csv_name)
+    elif url.endswith('.csv.gz'):
+        csvgz_name = 'output.csv.gz'
+        os.system(f'wget {url} -O {csvgz_name}')
+        with gzip.open(csvgz_name, 'rt', newline='') as csvgz_file:
+            data = csvgz_file.read()
+            with open(csv_name, 'wt') as csv_file:
+                csv_file.write(data)
     else:
         os.system(f'wget {url} -O {csv_name}')
 
@@ -33,8 +41,16 @@ def main(params):
     df_iter = pd.read_csv(csv_name, iterator=True, chunksize=100000)
     df = next(df_iter)
 
-    df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-    df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+    # yellow
+    if 'tpep_pickup_datetime' in df.columns:
+        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+    if 'tpep_dropoff_datetime' in df.columns:
+        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+    # green
+    if 'lpep_pickup_datetime' in df.columns:
+        df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
+    if 'lpep_dropoff_datetime' in df.columns:
+        df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
     df.drop(columns=df.columns[0], axis=1, inplace=True)
 
     # create table
@@ -49,8 +65,16 @@ def main(params):
             
             df = next(df_iter)
             
-            df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-            df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+            # yellow
+            if 'tpep_pickup_datetime' in df.columns:
+                df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+            if 'tpep_dropoff_datetime' in df.columns:
+                df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+            # green
+            if 'lpep_pickup_datetime' in df.columns:
+                df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
+            if 'lpep_dropoff_datetime' in df.columns:
+                df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
             df.drop(columns=df.columns[0], axis=1, inplace=True)
             
             df.to_sql(name=table_name, con=engine, if_exists='append')

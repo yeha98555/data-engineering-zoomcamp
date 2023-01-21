@@ -27,12 +27,14 @@ docker network ls
    right click, select `Query Tool`
 
 ### Ingest Data
-#### yellow_taxi_trips
 ```shell
 # build docker image
 docker build -t taxi_ingest:v001 .
+```
 
-URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet"
+#### yellow_taxi_trips
+```shell
+URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2019-01.parquet"
 
 # run docker image
 docker run -it \
@@ -46,15 +48,26 @@ docker run -it \
     --table_name=yellow_taxi_trips \
     --url=${URL}
 ```
+
+#### green_taxi_trips
+```shell
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-01.csv.gz"
+
+# run docker image
+docker run -it \
+    --network=2_docker_sql_pg-network \
+    taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=pgdatabase \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=green_taxi_trips \
+    --url=${URL}
+```
+
 #### zones
 ```shell
-# comment below lines
-# df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-# df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
-# df.drop(columns=df.columns[0], axis=1, inplace=True)
-# rebuild docker image
-docker build -t taxi_ingest:v001 .
-
 URL="https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv"
 
 # run docker image
