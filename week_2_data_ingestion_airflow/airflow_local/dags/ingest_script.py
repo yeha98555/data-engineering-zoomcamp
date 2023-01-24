@@ -8,7 +8,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 
-def ingest_callable(user, password, host, port, db, table_name, csv_file, execution_date):
+def ingest_callable(user, password, host, port, db, table_name, parquet_filename, execution_date):
     print(execution_date)
 
     engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
@@ -16,7 +16,7 @@ def ingest_callable(user, password, host, port, db, table_name, csv_file, execut
 
     print('connection established successfully, inserting data...')
 
-    parquet_file = pq.ParquetFile(csv_file)
+    parquet_file = pq.ParquetFile(parquet_filename)
     iter = 0
     for chunk in parquet_file.iter_batches(batch_size=100000):
         df = chunk.to_pandas()
