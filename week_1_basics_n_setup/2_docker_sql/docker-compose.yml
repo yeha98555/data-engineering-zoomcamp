@@ -25,3 +25,5 @@ services:
     
 networks:
   pg-network:
+    external:
+      name: airflow_default
