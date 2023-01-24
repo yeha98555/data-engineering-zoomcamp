@@ -1,5 +1,4 @@
-
-
+## Ingesting NY Taxi Data to Postgres
 
 ### Postgres
 write Postgres and pgAdmin into `docker-compose.yml`.

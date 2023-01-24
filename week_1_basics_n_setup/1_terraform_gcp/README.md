@@ -1,6 +1,4 @@
-
 ## Local Setup for Terraform and GCP
-on Ubuntu 22.04
 
 ### Terraform
 
