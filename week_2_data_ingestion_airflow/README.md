@@ -109,8 +109,8 @@ docker compose up airflow-init
 docker compose up
 ```
 Then, go to
-- Airflow: [localhost:8080](localhost:8080)
-- Local Postgres: [localhost:8081](localhost:8081)
+- Airflow: [localhost:8080](http://localhost:8080)
+- Local Postgres: [localhost:8081](http://localhost:8081)
 
 #### GCP Version
 Ingesting Data to GCP with Airflow <br>
@@ -195,5 +195,8 @@ docker compose up airflow-init
 docker compose up
 ```
 Then, go to
-- Airflow: [localhost:8080](localhost:8080)
+- Airflow: [localhost:8080](http://localhost:8080)
 
+
+#### GCP lightweight Version
+[Code](./airflow_gcp/docker-compose-nofrills.yml)
