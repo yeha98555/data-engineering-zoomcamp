@@ -51,7 +51,6 @@ def main(params):
         df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
     if 'lpep_dropoff_datetime' in df.columns:
         df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
-    df.drop(columns=df.columns[0], axis=1, inplace=True)
 
     # create table
     df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
@@ -75,7 +74,6 @@ def main(params):
                 df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
             if 'lpep_dropoff_datetime' in df.columns:
                 df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
-            df.drop(columns=df.columns[0], axis=1, inplace=True)
             
             df.to_sql(name=table_name, con=engine, if_exists='append')
             
