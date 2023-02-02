@@ -3,11 +3,9 @@ import argparse
 import pandas as pd
 from sqlalchemy import create_engine
 from prefect import flow, task
-from prefect.tasks import task_input_hash
-from datetime import timedelta
 from prefect_sqlalchemy import SqlAlchemyConnector
 
-@task(log_prints=True, tags=['extract'], cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
+@task(log_prints=True, tags=['extract'])
 def extract_data(url: str):
     if url.endswith('.csv.gz'):
         csv_name = 'yellow_tripdata_2021-01.csv.gz'
