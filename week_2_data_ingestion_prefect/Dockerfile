@@ -6,3 +6,7 @@ RUN pip install -r docker-requirements.txt --trusted-host pypi.python.org --no-c
 
 COPY flows /opt/prefect/flows
 COPY data /opt/prefect/data
+
+ENV PREFECT_API_URL=http://127.0.0.1:4200/api
+RUN prefect config set PREFECT_API_URL="${PREFECT_API_URL}"
+# RUN prefect config set PREFECT_API_KEY="$PREFECT_API_KEY"
