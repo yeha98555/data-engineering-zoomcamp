@@ -28,7 +28,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
 @task()
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out locally as parquet file"""
-    output_dir = Path(f'../../data/{color}')
+    output_dir = Path(f'data/{color}')
     if not Path.exists(output_dir):
         output_dir.mkdir(parents=True, exist_ok=True)
     path = Path(f'{output_dir}/{dataset_file}.parquet')
