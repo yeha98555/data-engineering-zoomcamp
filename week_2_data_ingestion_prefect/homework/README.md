@@ -60,7 +60,7 @@ Make sure you have the parquet data files for Yellow taxi data for Feb. 2019 and
 - 11,338,483
 
 ### Command:
-[code](./q3_etl_gcs_to_bq.py)
+[code](./q3/q3_etl_gcs_to_bq.py)
 ```sh
 prefect agent start -q default
 
