@@ -17,7 +17,7 @@ What is the count for fhv vehicle records for year 2019?
 - 13,942,414
 
 ### Command:
-[code](../flows/etl_gcs_to_bq.py)
+[code](../flows/etl_gcs_to_bq.py)<br>
 create an external table using the fhv 2019 data
 ```sh
 prefect cloud login
