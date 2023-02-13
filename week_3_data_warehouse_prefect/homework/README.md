@@ -104,6 +104,7 @@ PARTITION BY DATE(pickup_datetime)
 CLUSTER BY affiliated_base_number AS
 SELECT * FROM trips_data_all.fhv_tripdata_external_table;
 
+SELECT distinct(affiliated_base_number) FROM trips_data_all.fhv_tripdata_non_partitoned WHERE DATE(pickup_datetime) BETWEEN '2019-03-01' AND '2019-03-31';
 SELECT distinct(affiliated_base_number) FROM trips_data_all.fhv_tripdata_partitoned_clustered WHERE DATE(pickup_datetime) BETWEEN '2019-03-01' AND '2019-03-31';
 ```
 
