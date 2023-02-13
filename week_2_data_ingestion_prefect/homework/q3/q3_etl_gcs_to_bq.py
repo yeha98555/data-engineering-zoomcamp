@@ -22,7 +22,7 @@ def fetch_to_gcs(year: int, month: int, color: str) -> None:
         f'{color}/{dataset_file}.parquet'
     )
 
-@task(log_prints=True)
+@flow(log_prints=True)
 def gcs_to_bq(color: str) -> None: 
 
     gcp_project_block = Secret.load("dtcde-gcp-project")
