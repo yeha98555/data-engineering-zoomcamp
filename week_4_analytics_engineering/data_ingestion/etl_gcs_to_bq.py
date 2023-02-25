@@ -77,7 +77,7 @@ def gcs_to_bq(color: str) -> None:
 
     table_name = bigquery_create_table(
         dataset='trips_data_all',
-        table=f'{color}_tripdata_external_table',
+        table=f'{color}_tripdata',
         external_config=external_config,
         gcp_credentials=gcp_credentials_block
     )
