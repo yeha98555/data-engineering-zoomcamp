@@ -35,18 +35,13 @@ def fetch_to_gcs(year: int, month: int, color: str) -> None:
         df["payment_type"] = df["payment_type"].astype('Int64')
 
     if color == "fhv":
-        """Rename columns"""
-        df.rename({'dropoff_datetime':'dropOff_datetime'}, axis='columns', inplace=True)
-        df.rename({'PULocationID':'PUlocationID'}, axis='columns', inplace=True)
-        df.rename({'DOLocationID':'DOlocationID'}, axis='columns', inplace=True)
-
         """Fix dtype issues"""
         df["pickup_datetime"] = pd.to_datetime(df["pickup_datetime"])
-        df["dropOff_datetime"] = pd.to_datetime(df["dropOff_datetime"])
+        df["dropoff_datetime"] = pd.to_datetime(df["dropoff_datetime"])
 
         # See https://pandas.pydata.org/docs/user_guide/integer_na.html
-        df["PUlocationID"] = df["PUlocationID"].astype('Int64')
-        df["DOlocationID"] = df["DOlocationID"].astype('Int64')
+        df["PULocationID"] = df["PULocationID"].astype('Int64')
+        df["DOLocationID"] = df["DOLocationID"].astype('Int64')
 
     print(df.head(2))
     print(f"columns: {df.dtypes}")
