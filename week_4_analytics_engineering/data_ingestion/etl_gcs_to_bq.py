@@ -114,11 +114,12 @@ def gcs_to_bq(color: str) -> None:
 
 @flow()
 def etl_gcs_to_bq(
-    months: list[int] = [2, 3], year: int = 2019, color: str = "fhv"
+    months: list[int] = [2, 3], years: list[int] = [2019], color: str = "fhv"
 ):
     """Main ETL flow to load data into BigQuery"""
-    for month in months:
-        fetch_to_gcs(year, month, color)
+    for year in years:
+        for month in months:
+            fetch_to_gcs(year, month, color)
     gcs_to_bq(color)
 
 
