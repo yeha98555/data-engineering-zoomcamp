@@ -84,13 +84,21 @@ Filter records with pickup time in year 2019.
 ### Command:
 [code](../taxi_rides_ny/models/staging/stg_fhv_tripdata.sql)
 
+In dbt,
 ```sh
-
+dbt build --var 'is_test_run: false'
+```
+In BigQuery,
+```sql
+SELECT date_trunc(pickup_datetime, YEAR), count(*) as records
+FROM fhv_tripdata
+GROUP BY 1
+ORDER BY 1 DESC;
 ```
 
 ### Answer:
 ```
-
+43244696
 ```
 
 
