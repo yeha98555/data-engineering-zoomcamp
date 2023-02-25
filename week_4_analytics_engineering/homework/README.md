@@ -32,13 +32,20 @@ You should find the views and models for querying in your DWH.
 - 71648442
 
 ### Command:
-```sh
+[code](../data_ingestion/etl_gcs_to_bq.py)
 
+In dbt, 
+```sh
+dbt build --var 'is_test_run: false'
+```
+In BigQuery,
+```sql
+SELECT COUNT(*) FROM fhv_tripdata_external_table;
 ```
 
 ### Answer:
 ```
-
+61648442
 ```
 
 
@@ -58,7 +65,7 @@ You will need to complete "Visualising the data" videos, either using [google da
 
 ### Answer:
 ```
-
+89.9/10.1
 ```
 
 
@@ -75,6 +82,8 @@ Filter records with pickup time in year 2019.
 - 63244696
 
 ### Command:
+[code](../taxi_rides_ny/models/staging/stg_fhv_tripdata.sql)
+
 ```sh
 
 ```
@@ -99,13 +108,23 @@ Run it via the CLI without limits (is_test_run: false) and filter records with p
 - 42998722
 
 ### Command:
-```sh
+[code](../taxi_rides_ny/models/core/fact_fhv_trips.sql)
 
+In dbt,
+```sh
+dbt build --var 'is_test_run: false'
+```
+In BigQuery,
+```sql
+SELECT date_trunc(pickup_datetime, YEAR), count(*) as records
+FROM fact_fhv_trips
+GROUP BY 1
+ORDER BY 1 DESC;
 ```
 
 ### Answer:
 ```
-
+22998722
 ```
 
 
@@ -120,14 +139,12 @@ Create a dashboard with some tiles that you find interesting to explore the data
 - January
 - December
 
-### Command:
-```sh
+### Result:
 
-```
 
 ### Answer:
 ```
-
+January
 ```
 
 
