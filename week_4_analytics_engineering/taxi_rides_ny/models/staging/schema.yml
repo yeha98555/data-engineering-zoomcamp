@@ -1,0 +1,10 @@
+version: 2
+
+source:
+  - names: staging
+    database: eighth-zenith-372015
+    schema: trip_data_all
+
+    tables:
+      - name: green_tripdata
+      - name: yellow_tripdata
