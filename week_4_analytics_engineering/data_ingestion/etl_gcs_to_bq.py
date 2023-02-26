@@ -16,12 +16,12 @@ def fetch_to_gcs(year: int, month: int, color: str) -> None:
     df = pd.read_csv(dataset_url)
 
     if color == "yellow":
-        """Fix dtype issues"""
+        # Fix dtype issues
         df["tpep_pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
         df["tpep_dropoff_datetime"] = pd.to_datetime(df["tpep_dropoff_datetime"])
 
     if color == "green":
-        """Fix dtype issues"""
+        # Fix dtype issues
         df["lpep_pickup_datetime"] = pd.to_datetime(df["lpep_pickup_datetime"])
         df["lpep_dropoff_datetime"] = pd.to_datetime(df["lpep_dropoff_datetime"])
         df["trip_type"] = df["trip_type"].astype('Int64')
@@ -35,7 +35,12 @@ def fetch_to_gcs(year: int, month: int, color: str) -> None:
         df["payment_type"] = df["payment_type"].astype('Int64')
 
     if color == "fhv":
-        """Fix dtype issues"""
+        # Rename columns
+        df.rename({'dropOff_datetime':'dropoff_datetime'}, axis='columns', inplace=True)
+        df.rename({'PUlocationID':'PULocationID'}, axis='columns', inplace=True)
+        df.rename({'DOlocationID':'DOLocationID'}, axis='columns', inplace=True)
+
+        # Fix dtype issues
         df["pickup_datetime"] = pd.to_datetime(df["pickup_datetime"])
         df["dropoff_datetime"] = pd.to_datetime(df["dropoff_datetime"])
 
@@ -67,7 +72,7 @@ def gcs_to_bq(color: str) -> None:
 
     ############################
     # method 1 - Create External Table (cannot count number of rows)
-    # reference: https://prefecthq.github.io/prefect-gcp/bigquery/#prefect_gcp.bigquery.bigquery_create_table
+    # See https://prefecthq.github.io/prefect-gcp/bigquery/#prefect_gcp.bigquery.bigquery_create_table
     ############################
     gcp_credentials_block = GcpCredentials.load("dtcde-gcp-creds")
 
