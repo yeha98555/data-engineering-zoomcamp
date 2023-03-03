@@ -36,7 +36,7 @@ select
     {{ get_payment_type_description('payment_type') }} as payment_type_description, 
     cast(congestion_surcharge as numeric) as congestion_surcharge #}
 from {{ source('staging', 'fhv_tripdata') }}
-{# where vendorid not null #}
+where dispatching_base_num is not null
 
 {% if var('is_test_run', default=true) %}
     limit 100
