@@ -4,6 +4,15 @@
     )
 }}
 
+with tripdata as 
+(
+  select *,
+    -- see: https://www.sqlservertutorial.net/sql-server-window-functions/sql-server-row_number-function/
+    row_number() over(partition by vendorid, lpep_pickup_datetime) as rn
+  from {{ source('staging', 'green_tripdata') }}
+  where vendorid is not null 
+)
+
 select
     -- identifiers
     {{ dbt_utils.generate_surrogate_key(['vendorid', 'lpep_pickup_datetime']) }} as tripid,
@@ -34,8 +43,8 @@ select
     cast(payment_type as integer) as payment_type,
     {{ get_payment_type_description('payment_type') }} as payment_type_description, 
     cast(congestion_surcharge as numeric) as congestion_surcharge
-from {{ source('staging', 'green_tripdata') }}
-where vendorid is not null
+from tripdata
+where rn = 1
 
 {% if var('is_test_run', default=true) %}
     limit 100
