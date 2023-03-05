@@ -40,7 +40,8 @@ dbt build --var 'is_test_run: false'
 ```
 In BigQuery,
 ```sql
-SELECT COUNT(*) FROM fhv_tripdata_external_table;
+SELECT count(1) FROM `dbt_dev.fact_trips`;
+-- output: 61604283
 ```
 
 ### Answer:
@@ -61,7 +62,7 @@ You will need to complete "Visualising the data" videos, either using [google da
 - 99.1/0.9
 
 ### Result:
-
+![fact_trips Google Looker](./images/fact_trips_looker.png)
 
 ### Answer:
 ```
@@ -90,10 +91,8 @@ dbt build --var 'is_test_run: false'
 ```
 In BigQuery,
 ```sql
-SELECT date_trunc(pickup_datetime, YEAR), count(*) as records
-FROM fhv_tripdata
-GROUP BY 1
-ORDER BY 1 DESC;
+SELECT count(1) FROM `dbt_dev.stg_fhv_tripdata`;
+-- output: 43244693
 ```
 
 ### Answer:
@@ -124,10 +123,8 @@ dbt build --var 'is_test_run: false'
 ```
 In BigQuery,
 ```sql
-SELECT date_trunc(pickup_datetime, YEAR), count(*) as records
-FROM fact_fhv_trips
-GROUP BY 1
-ORDER BY 1 DESC;
+SELECT count(1) FROM `dbt_dev.fact_fhv_trips`;
+-- output: 22998722
 ```
 
 ### Answer:
@@ -148,7 +145,7 @@ Create a dashboard with some tiles that you find interesting to explore the data
 - December
 
 ### Result:
-
+![fact_trips_fhv Google Looker](./images/fact_trips_fhv_looker.png)
 
 ### Answer:
 ```
