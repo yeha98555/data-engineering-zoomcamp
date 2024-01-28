@@ -44,7 +44,7 @@ docker build -t taxi_ingest:v001 .
 
 #### yellow_taxi_trips
 ```shell
-URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2019-01.parquet"
+URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2019-09.parquet"
 
 # run docker image
 docker run -it \
@@ -61,7 +61,7 @@ docker run -it \
 
 #### green_taxi_trips
 ```shell
-URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-01.csv.gz"
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
 
 # run docker image
 docker run -it \
