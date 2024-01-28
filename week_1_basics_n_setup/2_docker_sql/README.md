@@ -96,6 +96,12 @@ docker run -it \
 ## Vanna.ai text-to-sql Bot
 Reference: [Ref1](https://vanna.ai/docs/postgres-openai-vanna-vannadb.html), [Ref2](https://github.com/r0mymendez/text-to-sql/blob/main/vanna-streamlit-tutorial.ipynb)
 
+### Installation
+```
+pip install 'vanna[postgres]'
+```
+
+### Run
 You need to register at [https://vanna.ai/](https://vanna.ai/) first, and then replace the email in the following command with your registered email. Additionally, the model needs to be trained initially, so set the `is_training` parameter to `"True"`. Once the training is complete, set it to `"False"`. If there are any changes to the data, you can set it back to `"True"`.
 ```sh
 python vanna_ai_bot.py \
