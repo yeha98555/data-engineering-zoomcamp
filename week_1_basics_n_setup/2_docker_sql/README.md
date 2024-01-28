@@ -92,3 +92,24 @@ docker run -it \
     --table_name=zones \
     --url=${URL}
 ```
+
+## Vanna.ai text-to-sql Bot
+Reference: [Ref1](https://vanna.ai/docs/postgres-openai-vanna-vannadb.html), [Ref2](https://github.com/r0mymendez/text-to-sql/blob/main/vanna-streamlit-tutorial.ipynb)
+
+You need to register at [https://vanna.ai/](https://vanna.ai/) first, and then replace the email in the following command with your registered email. Additionally, the model needs to be trained initially, so set the `is_training` parameter to `"True"`. Once the training is complete, set it to `"False"`. If there are any changes to the data, you can set it back to `"True"`.
+```sh
+python vanna_ai_bot.py \
+    --email "xxxx@example.com" \
+    --model "ny_taxi_model" \
+    --is_training "False" \
+    --host "localhost" \
+    --port "5432" \
+    --db "ny_taxi" \
+    --user "root" \
+    --password "root" \
+    --question "Consider lpep_pickup_datetime in '2019-09-18' and ignoring Borough has Unknown\nWhich were the 3 pick up Boroughs that had a sum of total_amount superior to 50000?"
+```
+Upon execution, the following message will appear in the terminal. It's necessary to enter the code received in the registered email.
+```
+Check your email for the code and enter it here: 
+```
