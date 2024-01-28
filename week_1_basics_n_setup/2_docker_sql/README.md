@@ -14,6 +14,17 @@ docker compose down
 # check newtork
 docker network ls
 ```
+
+#### pgcli
+```sh
+# install
+pip install pgcli psycopg-binary
+
+# connect postgres
+pgcli -h localhost -p 5432 -u root -d ny_taxi
+```
+
+#### pgadmin
 1. go to `localhost:8080`.
 2. login
    use the `PGADMIN_DEFAULT_EMAIL` and `PGADMIN_DEFAULT_PASSWORD`
