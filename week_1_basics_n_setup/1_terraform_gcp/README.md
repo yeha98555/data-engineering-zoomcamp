@@ -63,11 +63,11 @@ gcloud auth application-default login
    1) go to `IAM` on the left menu
    2) click `edit` icon of the `dtc-de-user`
    3) click `ADD ANOTHER ROLE`
-   4) choose `Storage Admin`
+   4) choose `Storage Admin` (Cloud Storage)
    5) click `ADD ANOTHER ROLE`
-   6) choose `Storage Object Admin`
+   6) choose `BigQuery Admin` (BigQuery)
    7) click `ADD ANOTHER ROLE`
-   8) choose `BigQuery Admin`
+   8) choose `Compute Admin` (Compute Engine)
    9) click `SAVE`
 8. enable these APIs for the project
    - [Identity and Access Management (IAM) API](https://console.cloud.google.com/apis/library/iam.googleapis.com)
