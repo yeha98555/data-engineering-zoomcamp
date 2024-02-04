@@ -37,6 +37,15 @@ resource "google_storage_bucket" "data-lake-bucket" {
     }
   }
 
+  lifecycle_rule {
+    action {
+      type = "AbortIncompleteMultipartUpload"
+    }
+    condition {
+      age = 1 // days
+    }
+  }
+
   force_destroy = true
 }
 
