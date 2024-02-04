@@ -29,8 +29,10 @@ VSCode Extensions
     - Project name: dtc-de
 3. go `IAM & Admin` on left menu, then go to `Service Accounts`
     - service account name: dtc-de-user
-    - role: viewer (we'll set it later)
+    - role: viewer (we'll set it later)<br>
+   
    then click `DONE` to finish creating service account.
+   
 4. click `...` -> `Manage keys` of the created service account
 	1) `ADD KEY` -> `Create new key`
 	2) choose `JSON`
