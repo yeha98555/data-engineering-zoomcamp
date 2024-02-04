@@ -26,12 +26,12 @@ terraform --version
     - Project name: dtc-de
 3. go `IAM & Admin` on left menu, then go to `Service Accounts`
     - service account name: dtc-de-user
-    - role: viewer
-4. click `CREATE SERVICE ACCOUNT`
-5. click `Manage keys` of the created service account
+    - role: viewer (we'll set it later)
+   then click `DONE` to finish creating service account.
+4. click `...` -> `Manage keys` of the created service account
 	1) `ADD KEY` -> `Create new key`
 	2) choose `JSON`
-6. install Google Cloud SDK  
+5. install Google Cloud SDK  
 [reference](https://cloud.google.com/sdk/docs/install#deb)
 ```shell
 # install repository addition dependencies
@@ -50,7 +50,7 @@ sudo apt-get update && sudo apt-get install google-cloud-cli
 gcloud --version
 gcloud -v
 ```
-7. set environment variable to point to your download GCP auth-keys
+6. set environment variable to point to your download GCP auth-keys
 ```shell
 export GOOGLE_APPLICATION_CREDENTIALS="<path/to/your/service-account-authkeys>.json"
 
@@ -59,7 +59,7 @@ gcloud auth application-default login
 # the broswer will appear to ask you to login and authenticate.
 ```
 
-8. add access to `dtc-de-user` on Google Cloud Platform
+7. add access to `dtc-de-user` on Google Cloud Platform
    1) go to `IAM` on the left menu
    2) click `edit` icon of the `dtc-de-user`
    3) click `ADD ANOTHER ROLE`
@@ -69,7 +69,7 @@ gcloud auth application-default login
    7) click `ADD ANOTHER ROLE`
    8) choose `BigQuery Admin`
    9) click `SAVE`
-9. enable these APIs for the project
+8. enable these APIs for the project
    - [Identity and Access Management (IAM) API](https://console.cloud.google.com/apis/library/iam.googleapis.com)
    - [IAM Service Account Credentials API](https://console.cloud.google.com/apis/library/iamcredentials.googleapis.com)
 
