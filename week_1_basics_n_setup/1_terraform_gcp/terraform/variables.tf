@@ -8,18 +8,18 @@ variable "project" {
 
 variable "region" {
   description = "Region for GCP resources. Choose as per your location: https://cloud.google.com/about/locations"
-  default = "us-west1"
-  type = string
+  default     = "us-west1"
+  type        = string
 }
 
 variable "storage_class" {
   description = "Storage class type for your bucket. Check official docs for more info."
-  default = "STANDARD"
+  default     = "STANDARD"
 }
 
 variable "BQ_DATASET" {
   type = list(object({
-    id = string
+    id          = string
     description = string
   }))
 }
