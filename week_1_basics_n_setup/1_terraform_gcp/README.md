@@ -52,6 +52,8 @@ VSCode Extensions
 
 #### Use key (Google Credentials)
 
+There's two options. You can choose one.
+
 ##### Terraform
 set Google Credentials for each project.
 
