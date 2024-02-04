@@ -24,6 +24,8 @@ VSCode Extensions
 
 ### GCP
 
+#### Create Service Account and Gnerate Key
+
 1. login [Google Cloud Platform](https://cloud.google.com/)
 2. create a new project, and select it
     - Project name: dtc-de
@@ -35,8 +37,45 @@ VSCode Extensions
 
 4. click `...` -> `Manage keys` of the created service account
 	1) `ADD KEY` -> `Create new key`
-	2) choose `JSON`
-5. install Google Cloud SDK  
+	2) choose `JSON` 
+
+5. add access to `dtc-de-user` on Google Cloud Platform
+   1) go to `IAM` on the left menu
+   2) click `edit` icon of the `dtc-de-user`
+   3) click `ADD ANOTHER ROLE`
+   4) choose `Storage Admin` (Cloud Storage)
+   5) click `ADD ANOTHER ROLE`
+   6) choose `BigQuery Admin` (BigQuery)
+   7) click `ADD ANOTHER ROLE`
+   8) choose `Compute Admin` (Compute Engine)
+   9) click `SAVE`
+
+#### Use key (Google Credentials)
+
+##### Terraform
+set Google Credentials for each project.
+
+1. add `credentials` line to `provider` in `main.tf`
+```tf
+provider "google" {
+  project     = var.project
+  region      = var.region
+  credentials = file(var.credentials) # Use this if you do not want to set env-var GOOGLE_APPLICATION_CREDENTIALS
+}
+```
+
+2. add below three liens to `variables.tf`
+```tf
+variable "credentials" {
+  description = "Path to your GCP Service Account JSON file"
+  type        = string
+}
+```
+
+##### Google Cloud SDK
+set Google Credentials as default for PC.
+
+1. install Google Cloud SDK  
 [reference](https://cloud.google.com/sdk/docs/install#deb)
 ```shell
 # install repository addition dependencies
@@ -55,7 +94,7 @@ sudo apt-get update && sudo apt-get install google-cloud-cli
 gcloud --version
 gcloud -v
 ```
-6. set environment variable to point to your download GCP auth-keys
+2. set environment variable to point to your download GCP auth-keys
 ```shell
 export GOOGLE_APPLICATION_CREDENTIALS="<path/to/your/service-account-authkeys>.json"
 # if want to cancel, unset GOOGLE_APPLICATION_CREDENTIALS
@@ -65,17 +104,7 @@ gcloud auth application-default login
 # the broswer will appear to ask you to login and authenticate.
 ```
 
-7. add access to `dtc-de-user` on Google Cloud Platform
-   1) go to `IAM` on the left menu
-   2) click `edit` icon of the `dtc-de-user`
-   3) click `ADD ANOTHER ROLE`
-   4) choose `Storage Admin` (Cloud Storage)
-   5) click `ADD ANOTHER ROLE`
-   6) choose `BigQuery Admin` (BigQuery)
-   7) click `ADD ANOTHER ROLE`
-   8) choose `Compute Admin` (Compute Engine)
-   9) click `SAVE`
-8. enable these APIs for the project
+3. enable these APIs for the project
    - [Identity and Access Management (IAM) API](https://console.cloud.google.com/apis/library/iam.googleapis.com)
    - [IAM Service Account Credentials API](https://console.cloud.google.com/apis/library/iamcredentials.googleapis.com)
 
