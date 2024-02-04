@@ -19,6 +19,9 @@ sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.rel
 terraform --version
 ```
 
+VSCode Extensions
+- HashiCorp Terraform
+
 ### GCP
 
 1. login [Google Cloud Platform](https://cloud.google.com/)
