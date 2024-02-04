@@ -32,7 +32,7 @@ VSCode Extensions
     - role: viewer (we'll set it later)<br>
    
    then click `DONE` to finish creating service account.
-   
+
 4. click `...` -> `Manage keys` of the created service account
 	1) `ADD KEY` -> `Create new key`
 	2) choose `JSON`
@@ -58,6 +58,7 @@ gcloud -v
 6. set environment variable to point to your download GCP auth-keys
 ```shell
 export GOOGLE_APPLICATION_CREDENTIALS="<path/to/your/service-account-authkeys>.json"
+# if want to cancel, unset GOOGLE_APPLICATION_CREDENTIALS
 
 # refresh token, and verify authentication
 gcloud auth application-default login
