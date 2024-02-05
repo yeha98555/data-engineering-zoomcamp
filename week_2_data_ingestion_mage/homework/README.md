@@ -39,6 +39,49 @@ Once the dataset is loaded, what's the shape of the data?
 * 544,898 rows x 20 columns
 * 133,744 rows x 20 columns
 
+### Command:
+```py
+route_url = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green'
+year = '2020'
+months = ['10', '11', '12']
+
+taxi_dtypes = {
+    'VendorID': pd.Int64Dtype(),
+    'passenger_count': pd.Int64Dtype(),
+    'trip_distance': float,
+    'RatecodeID': pd.Int64Dtype(),
+    'store_and_fwd_flag': str,
+    'PULocationID': pd.Int64Dtype(),
+    'DOLocationID': pd.Int64Dtype(),
+    'payment_type': pd.Int64Dtype(),
+    'fare_amount': float,
+    'extra': float,
+    'mta_tax': float,
+    'tip_amount': float,
+    'tolls_amount': float,
+    'improvement_surcharge': float,
+    'total_amount': float,
+    'congestion_surcharge': float
+}
+
+# native date parsing
+parse_dates = ['lpep_pickup_datetime', 'lpep_dropoff_datetime']
+
+df_list = []
+
+for month in months:
+    url = f'{route_url}/green_tripdata_{year}-{month}.csv.gz'
+    print(url)
+    df_list.append(pd.read_csv(url, sep=',', compression='gzip', dtype=taxi_dtypes, parse_dates=parse_dates))
+
+res = pd.concat(df_list, axis=0)
+```
+
+### Answer:
+```
+266,855 rows x 20 columns
+```
+
 ## Question 2. Data Transformation
 
 Upon filtering the dataset where the passenger count is greater than 0 _and_ the trip distance is greater than zero, how many rows are left?
@@ -47,6 +90,22 @@ Upon filtering the dataset where the passenger count is greater than 0 _and_ the
 * 266,855 rows
 * 139,370 rows
 * 266,856 rows
+
+### Command:
+```py
+# zero passenger
+print('Preprocessing: rows with zero passenger:', df.passenger_count.isin([0]).sum())
+df = df[df['passenger_count'] > 0]
+
+# zero distance
+print('Preprocessing: rows with zero distance:', df.trip_distance.isin([0]).sum())
+df = df[df['trip_distance'] > 0]
+```
+
+### Answer:
+```
+139,370 rows
+```
 
 ## Question 3. Data Transformation
 
@@ -57,6 +116,11 @@ Which of the following creates a new column `lpep_pickup_date` by converting `lp
 * `data['lpep_pickup_date'] = data['lpep_pickup_datetime'].dt.date`
 * `data['lpep_pickup_date'] = data['lpep_pickup_datetime'].dt().date()`
 
+### Answer:
+```
+`data['lpep_pickup_date'] = data['lpep_pickup_datetime'].dt.date`
+```
+
 ## Question 4. Data Transformation
 
 What are the existing values of `VendorID` in the dataset?
@@ -65,6 +129,18 @@ What are the existing values of `VendorID` in the dataset?
 * 1 or 2
 * 1, 2, 3, 4
 * 1
+
+### Command:
+```sql
+SELECT vendor_id FROM mage.green_taxi
+GROUP BY vendor_id
+LIMIT 10;
+```
+
+### Answer:
+```
+1 or 2
+```
 
 ## Question 5. Data Transformation
 
@@ -75,6 +151,11 @@ How many columns need to be renamed to snake case?
 * 2
 * 4
 
+### Answer:
+```
+4
+```
+
 ## Question 6. Data Exporting
 
 Once exported, how many partitions (folders) are present in Google Cloud?
@@ -83,6 +164,35 @@ Once exported, how many partitions (folders) are present in Google Cloud?
 * 56
 * 67
 * 108
+
+### Command:
+```py
+bucket_name = '<ommit>'
+project_id = '<ommit>'
+
+table_name = "nyc_taxi_data"
+
+root_path = f"{bucket_name}/{table_name}"
+
+@data_exporter
+def export_data(data: DataFrame, **kwargs) -> None:
+    table = pa.Table.from_pandas(data)
+
+    gcs = pa.fs.GcsFileSystem()
+
+    pq.write_to_dataset(
+        table,
+        root_path=root_path,
+        partition_cols=['lpep_pickup_date'],
+        filesystem=gcs
+    )
+
+```
+
+### Answer:
+```
+96
+```
 
 ## Submitting the solutions
 
