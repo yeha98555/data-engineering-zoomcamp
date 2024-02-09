@@ -5,29 +5,29 @@ workflow orchestration with Mage
 
 ### Setup empty mage project
 
-1. download from [mage-ai/mage-zoomcamp](https://github.com/mage-ai/mage-zoomcamp).
+#### 1. download from [mage-ai/mage-zoomcamp](https://github.com/mage-ai/mage-zoomcamp).
 ```sh
 git clone https://github.com/mage-ai/mage-zoomcamp.git mage-project
 ```
 
-2. remove .git folder because I have my git versioning outside folder.
+#### 2. remove .git folder because I have my git versioning outside folder.
 ```
 rm -rf .git
 ```
 and then remove `magic-zoomcamp` in `.gitignore` for git versioning control.
 
-3. create `.env` from `dev.env`
+#### 3. create `.env` from `dev.env`
 ```sh
 cp dev.env .env
 ```
 
-4. run
+#### 4. run
 ```sh
 cd mage-project
 docker compose build
 docker compose up
 ```
-navigate to http://localhost:6789, you can see...
+navigate to http://localhost:6789, you can see...<br>
 <img src="./images/initial_ui_screenshot.png" width="600px">
 
 - "Help improve Mage": ask you permission to contribute usage statistics to help improve the developer.
@@ -111,26 +111,26 @@ docker compose build  # becuase changing the docker-compose.yml
 docker compose up
 ```
 
-- (optional) if any packages need to install, you can add into `requirements.txt`
+- (optional) if any packages need to install, you can add into `requirements.txt`.
 
 #### Build
 steps according to the homework.
 
 run `docker compose up` and navigate to `http://localhost:6789`.
 
-1. Create new "Pipeline"
+##### 1. Create new "Pipeline"
 
-2. Add `Data loader` 
+##### 2. Add `Data loader` 
 
 choose `Python` > `API`, update to [file](./mage-project/magic-zoomcamp/data_loaders/load_api_data.py).
 
-3. Add `Transformer` 
+##### 3. Add `Transformer` 
 
 choose `Python` > `Generic (no template)`, update to [file](./mage-project/magic-zoomcamp/transformers/transform_taxi_data.py).
 
-4. Add `Data exporter`
+##### 4. Add `Data exporter`
 
-4-1. Postgres (development, locally)
+###### 4-1. Postgres (development, locally)
 
 choose `Python` > `PostgreSQL`, update to [file](./mage-project/magic-zoomcamp/data_exporters/data_to_postgres.py).
 
@@ -142,7 +142,7 @@ use "Data Loader" to check, choose `SQL`, the options:
 and update to [file](./mage-project/magic-zoomcamp/data_loaders/select_postgres.sql).
 
 
-4-2 GCS
+###### 4-2 GCS
 
 4-2-1 GCP Services Up
 
@@ -175,7 +175,7 @@ choose `Python` > `Generic (no template)`, update to [file](./mage-project/magic
 
 4-2-4 Check "Tree"
 
-all exporters is under the transformer, like below.
+all exporters is under the transformer, like...<br>
 <img src="./images/pipeline_tree.png" width="500px">
 
 
