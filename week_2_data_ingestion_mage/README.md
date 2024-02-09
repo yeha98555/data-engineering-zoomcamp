@@ -71,7 +71,7 @@ If you not use postgres-related part in `docker-compose.yml`, such as [mage-ai/c
 #### Prerequisites
 before start, something need to do...
 
-- if use postgres, update your postgres info and create `dev` environment
+##### 1. if use postgres, update your postgres info and create `dev` environment
 
 add dev environment to `io_config.yaml` using postgres in docker-compose.
 ```yaml
@@ -86,7 +86,7 @@ dev:
   POSTGRES_PORT: "{{ env_var('POSTGRES_PORT') }}"
 ```
 
-- if use gcp, add google crediential json
+##### 2. if use gcp, add google crediential json
 
 update the line 23 `~/Documents/secrets/personal-gcp.json:/home/src/personal-gcp.json` in `docker-compose.yml` to fit the path of your google crediential json file.
 
@@ -111,7 +111,7 @@ docker compose build  # becuase changing the docker-compose.yml
 docker compose up
 ```
 
-- (optional) if any packages need to install, you can add into `requirements.txt`.
+##### 3. (optional) if any packages need to install, you can add into `requirements.txt`.
 
 #### Build
 steps according to the homework.
