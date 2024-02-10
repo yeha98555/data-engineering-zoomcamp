@@ -23,7 +23,8 @@ def export_data(data, *args, **kwargs):
     bucket_name = os.environ['BUCKET_NAME']
     project_id = os.environ['PROJECT_ID']
 
-    table_name = os.environ['TABLE_NAME']
+
+    table_name = 'green_taxi'
 
     root_path = f"{bucket_name}/{table_name}"
     

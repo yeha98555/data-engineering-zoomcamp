@@ -149,6 +149,9 @@ and update to [file](./mage-project/magic-zoomcamp/data_loaders/select_postgres.
 ```sh
 cd ../../week_1_basics_n_setup/1_terraform_gcp/terraform
 terraform apply
+
+# when not use, don't forget to
+# terraform destroy
 ```
 
 4-2-2 Add project environment variable
@@ -157,7 +160,6 @@ update `.env`
 ```
 PROJECT_ID=xxxxx  # replace
 BUCKET_NAME=xxxxx  # replace 
-TABLE_NAME=nyc_taxi_data
 ```
 
 restart docker compose
@@ -177,6 +179,43 @@ choose `Python` > `Generic (no template)`, update to [file](./mage-project/magic
 
 all exporters is under the transformer, like...<br>
 <img src="./images/pipeline_tree.png" width="500px">
+
+
+###### 4-3 BigQuery
+
+4-3-1 GCP Services Up (if 4-2 done, it can be ignored)
+
+```sh
+cd ../../week_1_basics_n_setup/1_terraform_gcp/terraform
+terraform apply
+
+# when not use, don't forget to
+# terraform destroy
+```
+
+4-3-2 Add project environment variable
+
+update `.env`
+```
+DATASET_NAME=nyc_taxi_data
+```
+
+restart docker compose
+```sh
+docker compose stop
+docker compose rm
+
+docker compose build  # becuase changing the docker-compose.yml
+docker compose up
+```
+
+4-3-3 Add `Data exporter`
+
+choose `Python` > `Google BigQuery`, update to [file](./mage-project/magic-zoomcamp/data_exporters/data_to_bq.py).
+
+4-3-4 Check "Tree"
+
+all exporters is under the transformer.
 
 
 About source code

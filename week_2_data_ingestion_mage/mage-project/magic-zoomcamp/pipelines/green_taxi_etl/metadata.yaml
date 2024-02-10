@@ -21,6 +21,7 @@ blocks:
   downstream_blocks:
   - data_to_postgres
   - data_to_gcs
+  - data_to_bq
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -84,12 +85,28 @@ blocks:
   language: python
   name: data_to_gcs
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
   - transform_taxi_data
   uuid: data_to_gcs
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: data_to_bq
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_taxi_data
+  uuid: data_to_bq
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
