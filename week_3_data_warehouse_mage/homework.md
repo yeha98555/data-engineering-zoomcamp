@@ -12,12 +12,24 @@ Create an external table using the Green Taxi Trip Records Data for 2022. </br>
 Create a table in BQ using the Green Taxi Trip Records for 2022 (do not partition or cluster this table). </br>
 </p>
 
+Implement [code](./mage-project/).
+
 ## Question 1:
 Question 1: What is count of records for the 2022 Green Taxi Data??
 - 65,623,481
 - 840,402
 - 1,936,423
 - 253,647
+
+### Command:
+```sh
+SELECT COUNT(1) FROM `trips_data_all.green_taxi`;
+```
+
+### Answer:
+```
+840,402
+```
 
 ## Question 2:
 Write a query to count the distinct number of PULocationIDs for the entire dataset on both the tables.</br> 
@@ -28,6 +40,20 @@ What is the estimated amount of data that will be read when this query is execut
 - 0 MB for the External Table and 0MB for the Materialized Table
 - 2.14 MB for the External Table and 0MB for the Materialized Table
 
+### Command:
+```sh
+-- Create the Materialized Table
+CREATE OR REPLACE TABLE trips_data_all.green_tripdata_non_partitoned AS
+SELECT * FROM trips_data_all.green_taxi;
+
+SELECT COUNT(DISTINCT pulocation_id) FROM trips_data_all.green_taxi;
+SELECT COUNT(DISTINCT pulocation_id) FROM trips_data_all.green_tripdata_non_partitoned;
+```
+
+### Answer:
+```
+0 MB for the External Table and 6.41MB for the Materialized Table
+```
 
 ## Question 3:
 How many records have a fare_amount of 0?
@@ -36,12 +62,35 @@ How many records have a fare_amount of 0?
 - 112
 - 1,622
 
+### Command:
+```sh
+SELECT COUNT(1) FROM trips_data_all.green_taxi WHERE fare_amount = 0;
+```
+
+### Answer:
+```
+1,622
+```
+
 ## Question 4:
 What is the best strategy to make an optimized table in Big Query if your query will always order the results by PUlocationID and filter based on lpep_pickup_datetime? (Create a new table with this strategy)
 - Cluster on lpep_pickup_datetime Partition by PUlocationID
 - Partition by lpep_pickup_datetime  Cluster on PUlocationID
 - Partition by lpep_pickup_datetime and Partition by PUlocationID
 - Cluster on by lpep_pickup_datetime and Cluster on PUlocationID
+
+### Command:
+```sh
+CREATE OR REPLACE TABLE trips_data_all.green_tripdata_partitoned_clustered
+PARTITION BY DATE(lpep_pickup_datetime)
+CLUSTER BY pulocation_id AS
+SELECT * FROM trips_data_all.green_taxi;
+```
+
+### Answer:
+```
+Partition by lpep_pickup_datetime  Cluster on PUlocationID
+```
 
 ## Question 5:
 Write a query to retrieve the distinct PULocationID between lpep_pickup_datetime
@@ -56,6 +105,16 @@ Choose the answer which most closely matches.</br>
 - 5.63 MB for non-partitioned table and 0 MB for the partitioned table
 - 10.31 MB for non-partitioned table and 10.31 MB for the partitioned table
 
+### Command:
+```sh
+SELECT DISTINCT pulocation_id FROM trips_data_all.green_tripdata_non_partitoned WHERE DATE(lpep_pickup_datetime) BETWEEN '2022-06-01' AND '2022-06-30';
+SELECT DISTINCT pulocation_id FROM trips_data_all.green_tripdata_partitoned_clustered WHERE DATE(lpep_pickup_datetime) BETWEEN '2022-06-01' AND '2022-06-30';
+```
+
+### Answer:
+```
+12.82 MB for non-partitioned table and 1.12 MB for the partitioned table
+```
 
 ## Question 6: 
 Where is the data stored in the External Table you created?
@@ -65,16 +124,30 @@ Where is the data stored in the External Table you created?
 - Big Table
 - Container Registry
 
+### Answer:
+```
+GCP Bucket
+```
 
 ## Question 7:
 It is best practice in Big Query to always cluster your data:
 - True
 - False
 
+### Answer:
+```
+False
+```
 
 ## (Bonus: Not worth points) Question 8:
 No Points: Write a `SELECT count(*)` query FROM the materialized table you created. How many bytes does it estimate will be read? Why?
 
+### Answer:
+```
+0 B
+
+This query is getting answered from metadata tables, hence no cost. If you use some filter condition or use some actual column in the group by, you will incur cost.
+```
  
 ## Submitting the solutions
 
