@@ -12,7 +12,9 @@ Create an external table using the Green Taxi Trip Records Data for 2022. </br>
 Create a table in BQ using the Green Taxi Trip Records for 2022 (do not partition or cluster this table). </br>
 </p>
 
-Implement [code](./mage-project/).
+Implement [code](./mage-project/magic-zoomcamp/).
+
+(I've renamed columns in Camel Case to Snake Case.)
 
 ## Question 1:
 Question 1: What is count of records for the 2022 Green Taxi Data??
