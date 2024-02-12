@@ -66,7 +66,7 @@ The [linked colab notebook](https://colab.research.google.com/drive/1Te-AT0lfh0G
 - **C**: 8.382332347441762
 - **D**: 9.123332347441762
 
-### Command:
+##### Command:
 ```python
 def square_root_generator(limit):
     n = 1
@@ -85,7 +85,7 @@ for sqrt_value in generator:
     print(sqrt_value)
 ```
 
-### Answer:
+##### Answer:
 ```
 C
 ```
@@ -96,7 +96,7 @@ C
 - **C**: 2.345551275463989
 - **D**: 5.678551275463989
 
-### Command:
+##### Command:
 ```python
 def square_root_generator(limit):
     n = 1
@@ -112,7 +112,7 @@ for sqrt_value in generator:
     print(sqrt_value)
 ```
 
-### Answer:
+##### Answer:
 ```
 B
 ```
@@ -123,7 +123,7 @@ B
 - **C**: 378
 - **D**: 390
 
-### Command:
+##### Command:
 ```python
 # !pip install dlt[duckdb]
 import dlt
@@ -154,7 +154,7 @@ total_age = people['age'].sum()
 print(f"The sum of ages of all people is: {total_age}")
 ```
 
-### Answer:
+##### Answer:
 ```
 A
 ```
@@ -165,7 +165,7 @@ A
 - **C**: 241
 - **D**: 258
 
-### Command:
+##### Command:
 ```python
 # !pip install dlt[duckdb]
 import dlt
@@ -199,7 +199,7 @@ total_age = people['age'].sum()
 print(f"The sum of ages of all people is: {total_age}")
 ```
 
-### Answer:
+##### Answer:
 ```
 B
 ```
