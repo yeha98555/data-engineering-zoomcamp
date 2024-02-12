@@ -66,11 +66,56 @@ The [linked colab notebook](https://colab.research.google.com/drive/1Te-AT0lfh0G
 - **C**: 8.382332347441762
 - **D**: 9.123332347441762
 
+### Command:
+```python
+def square_root_generator(limit):
+    n = 1
+    sum = 0
+    while n <= limit:
+        tmp = n ** 0.5
+        sum += tmp
+        yield sum
+        n += 1
+
+# usage:
+limit = 5
+generator = square_root_generator(limit)
+
+for sqrt_value in generator:
+    print(sqrt_value)
+```
+
+### Answer:
+```
+C
+```
+
 #### Question 2: What is the 13th number yielded by the generator?
 - **A**: 4.236551275463989
 - **B**: 3.605551275463989
 - **C**: 2.345551275463989
 - **D**: 5.678551275463989
+
+### Command:
+```python
+def square_root_generator(limit):
+    n = 1
+    while n <= limit:
+        yield n ** 0.5
+        n += 1
+
+# usage:
+limit = 13
+generator = square_root_generator(limit)
+
+for sqrt_value in generator:
+    print(sqrt_value)
+```
+
+### Answer:
+```
+B
+```
 
 #### Question 3: Append the 2 generators. After correctly appending the data, calculate the sum of all ages of people.
 - **A**: 353
@@ -78,11 +123,86 @@ The [linked colab notebook](https://colab.research.google.com/drive/1Te-AT0lfh0G
 - **C**: 378
 - **D**: 390
 
+### Command:
+```python
+# !pip install dlt[duckdb]
+import dlt
+import duckdb
+
+pipeline = dlt.pipeline(
+    pipeline_name='my_pipeline',
+    destination='duckdb',
+    dataset_name='mydata1'
+)
+
+info = pipeline.run(people_1, table_name="people1")
+info = pipeline.run(people_2, table_name="people1")
+
+# show output
+conn = duckdb.connect(f"{pipeline.pipeline_name}.duckdb")
+
+conn.sql(f"SET search_path = '{pipeline.dataset_name}'")
+print('Loaded tables: ')
+display(conn.sql("show tables"))
+ 
+print("\n\n\n people1 table below: Note the times are properly typed")
+people = conn.sql("SELECT * FROM people1").df()
+display(people)
+
+# calculate the sum of ages of all people
+total_age = people['age'].sum()
+print(f"The sum of ages of all people is: {total_age}")
+```
+
+### Answer:
+```
+A
+```
+
 #### Question 4: Merge the 2 generators using the ID column. Calculate the sum of ages of all the people loaded as described above.
 - **A**: 215
 - **B**: 266
 - **C**: 241
 - **D**: 258
+
+### Command:
+```python
+# !pip install dlt[duckdb]
+import dlt
+import duckdb
+
+pipeline = dlt.pipeline(
+    pipeline_name='my_pipeline',
+    destination='duckdb',
+    dataset_name='mydata2'
+)
+
+info = pipeline.run(people_1, table_name="people1")
+info = pipeline.run(people_2,
+										table_name="people1",
+										write_disposition="merge",
+                    primary_key='ID')
+
+# show output
+conn = duckdb.connect(f"{pipeline.pipeline_name}.duckdb")
+
+conn.sql(f"SET search_path = '{pipeline.dataset_name}'")
+print('Loaded tables: ')
+display(conn.sql("show tables"))
+ 
+print("\n\n\n people1 table below: Note the times are properly typed")
+people = conn.sql("SELECT * FROM people1").df()
+display(people)
+
+# calculate the sum of ages of all people
+total_age = people['age'].sum()
+print(f"The sum of ages of all people is: {total_age}")
+```
+
+### Answer:
+```
+B
+```
 
 Submit the solution here: https://courses.datatalks.club/de-zoomcamp-2024/homework/workshop1
 
