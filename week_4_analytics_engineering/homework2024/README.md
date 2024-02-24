@@ -27,6 +27,11 @@ You'll need to have completed the ["Build the first dbt models"](https://www.you
 - It applies a _limit 100_ only to our staging models
 - Nothing
 
+### Answer:
+```
+It applies a _limit 100_ only to our staging models
+```
+
 ### Question 2: 
 
 **What is the code that our CI job will run? Where is this code coming from?**  
@@ -36,6 +41,10 @@ You'll need to have completed the ["Build the first dbt models"](https://www.you
 - The code from any development branch that has been opened based on main
 - The code from the development branch we are requesting to merge to main
 
+### Answer:
+```
+The code from the development branch we are requesting to merge to main
+```
 
 ### Question 3 (2 points)
 
@@ -52,6 +61,24 @@ Run the dbt model without limits (is_test_run: false).
 - 32998722
 - 42998722
 
+### Command:
+[code](../taxi_rides_ny/models/core/fact_fhv_trips.sql)
+
+In dbt,
+```sh
+dbt build --var 'is_test_run: false'
+```
+In BigQuery,
+```sql
+SELECT count(1) FROM `dbt_dev.fact_fhv_trips`;
+-- output: 22998722
+```
+
+### Answer:
+```
+22998722
+```
+
 ### Question 4 (2 points)
 
 **What is the service that had the most rides during the month of July 2019 month with the biggest amount of rides after building a tile for the fact_fhv_trips table?**
@@ -63,19 +90,19 @@ Create a dashboard with some tiles that you find interesting to explore the data
 - Yellow
 - FHV and Green
 
+### Result:
+#### Yellow and Green
+![fact_trips_yellow_and_green Google Looker](../homework/images/fact_trips_looker.png)
+#### FHV
+![fact_trips_fhv Google Looker](../homework/images/fact_trips_fhv_looker.png)
+
+### Answer:
+```
+Yellow
+```
 
 ## Submitting the solutions
 
 * Form for submitting: https://courses.datatalks.club/de-zoomcamp-2024/homework/hw4
 
 Deadline: 22 February (Thursday), 22:00 CET
-
-
-## Solution (To be published after deadline)
-
-* Video: 
-* Answers:
-  * Question 1: 
-  * Question 2: 
-  * Question 3: 
-  * Question 4: 
