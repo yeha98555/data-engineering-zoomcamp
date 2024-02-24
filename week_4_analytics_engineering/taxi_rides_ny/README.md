@@ -3,8 +3,20 @@ Welcome to your new dbt project!
 ### Using the starter project
 
 Try running the following commands:
-- dbt run
-- dbt test
+
+```sh
+# check dbt code
+dbt debug
+
+# install packages
+dbt deps
+
+# run
+dbt run
+
+# test
+dbt test
+```
 
 
 ### Resources:
