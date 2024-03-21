@@ -136,6 +136,52 @@ Options:
 
 p.s. The trip time between taxi zones does not take symmetricity into account, i.e. `A -> B` and `B -> A` are considered different trips. This applies to subsequent questions as well.
 
+##### Command:
+
+- materialized view
+
+```sql
+create materialized view if not exists trip_duration_per_zone as
+with trip_duration as (
+    select
+        puz.zone as pickup_zone,
+        doz.zone as dropoff_zone,
+        (tpep_dropoff_datetime - tpep_pickup_datetime) as duration
+    from
+        trip_data ytt
+    inner join
+        taxi_zone puz on ytt.pulocationid = puz.location_id
+    inner join
+        taxi_zone doz on ytt.dolocationid = doz.location_id
+)
+
+select
+    pickup_zone,
+    dropoff_zone,
+    count(1)        as num_trips,
+    avg(duration)   as avg_duration,
+    min(duration)   as shortest_trip,
+    max(duration)   as longest_trip
+from
+    trip_duration
+group by
+    pickup_zone,
+    dropoff_zone;
+```
+
+- lookup
+
+```sql
+select * from trip_duration_per_zone
+order by avg_duration desc
+limit 1;
+```
+
+##### Answer:
+```
+1. Yorkville East, Steinway
+```
+
 ### Question 2
 
 Recreate the MV(s) in question 1, to also find the **number of trips** for the pair of taxi zones with the highest average trip time.
@@ -145,6 +191,11 @@ Options:
 2. 3
 3. 10
 4. 1
+
+##### Answer:
+```
+4. 1
+```
 
 ### Question 3
 
@@ -163,6 +214,37 @@ Options:
 3. Midtown Center, Upper East Side South, Upper East Side North
 4. LaGuardia Airport, Midtown Center, Upper East Side North
 
+##### Command:
+
+- materialized view
+
+```sql
+create materialized view if not exists busiest_zones_last_17h_since_last as
+select
+    tz.zone as pickup_zone,
+    count(1) as num_trips
+from
+    trip_data ytt
+join
+    taxi_zone tz on ytt.pulocationid = tz.location_id
+where
+    ytt.tpep_pickup_datetime >= (select max(tpep_pickup_datetime) - interval '17 hours' from trip_data)
+group by
+    tz.zone;
+```
+
+- lookup
+
+```sql
+select *
+from busiest_zones_last_17h_since_last
+order by num_trips desc;
+```
+
+##### Answer:
+```
+2. LaGuardia Airport, Lincoln Square East, JFK Airport
+```
 
 ## Submitting the solutions
 
